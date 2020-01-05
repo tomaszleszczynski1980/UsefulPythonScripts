@@ -13,18 +13,18 @@ def srtToTxt (srt_file, txt_file = '', overwrite = False):
             if txt_file == '':
                 txt_file = srt_file[:-3] + 'txt'
 
-            with open (srt_file, 'r', encoding = 'utf-8') as src_file:
-                 srt_text = src_file.readlines()
+            with open (srt_file, 'r', encoding='utf-8') as src_file:
+                 srt_text = src_file.readlines()[1:]
 
                  if exists(txt_file) and overwrite == False:
                      print (f'output file "{txt_file}" already exists')
                      print ('specify another name or set overwrite as "True"')
 
                  else:
-                     with open (txt_file, 'w', encoding = 'utf-8') as output_file:
+                     with open (txt_file, 'w', encoding='utf-8') as output_file:
                          for item in srt_text:
 
-                             if item[0].isalpha():
+                             if not item[0].isdigit():
                                  output_file.write(item)
 
         else:

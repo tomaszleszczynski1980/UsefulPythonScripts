@@ -2,7 +2,7 @@ from sys import argv
 from os.path import exists 
 
 
-# this function clears from subtitles file (.srt) all timecode data and other stuff
+# this function clears from subtitles file (.srt) all timecode data
 # giving as an otuput pure text (.txt file format)
 
 def srtToTxt (srt_file, txt_file = '', overwrite = False):

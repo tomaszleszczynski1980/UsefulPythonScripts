@@ -41,14 +41,13 @@ def srtToTxt (srt_file, txt_file='', overwrite=False):
 
     except TypeError as error:
         print (f'"{srt_file}" is invalid file name')
-
     except FileNotFoundError as error:
         print (f'{error}')
 
 
 def main (argvs):
     if len(argvs) == 1:
-        files = input('>>> ').split(' ')
+        files = input('srt file path>>> ').split(' ')
 
     else:
         files = argvs[1:]

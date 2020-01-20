@@ -1,15 +1,24 @@
-from sys import argv
-from os.path import exists 
+"""
+    Srt to txt conversion.
+    
+    Function srtTooTxt clears from subtitles file (.srt) all timecode data.
+    Can be imported as module or run as separate python3 script.
+
+    Args:
+        srt file (path) -> string.
+    
+    Returns:
+        Pure text (.txt file format).
+    
+    Raises:
+        TypeError if input file is not srt
+        FileNotFoundError if input file not found.
+"""
 
 
-# this function clears from subtitles file (.srt) all timecode data
-# giving as an otuput pure text (.txt file format)
-
-def srtToTxt (srt_file, txt_file = '', overwrite = False):
-
+def srtToTxt (srt_file, txt_file='', overwrite=False):
     try:
-        if srt_file[-4:] == '.srt':
-
+        if srt_file.endswith('.srt'):
             if txt_file == '':
                 txt_file = srt_file[:-3] + 'txt'
 
@@ -23,7 +32,7 @@ def srtToTxt (srt_file, txt_file = '', overwrite = False):
                  else:
                      with open (txt_file, 'w', encoding='utf-8') as output_file:
                          for item in srt_text:
-
+                             
                              if not item[0].isdigit():
                                  output_file.write(item)
 

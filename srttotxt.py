@@ -59,4 +59,9 @@ def main (argvs):
         srtToTxt(files[0])
 
 
-main(argv)
+if __name__ == '__main__':
+
+    from sys import argv
+    from os.path import exists 
+
+    main(argv)

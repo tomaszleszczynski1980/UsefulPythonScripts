@@ -8,7 +8,8 @@
         srt file (path) -> string.
     
     Returns:
-        Pure text (.txt file format).
+        Answer - message
+        Writes pure text (.txt file format).
     
     Raises:
         TypeError if input file is not srt
@@ -18,27 +19,35 @@
 from os.path import exists
 
 
-def srtToTxt (srt_file, txt_file='', overwrite=False, noblanklines=False):
+def srtToTxt(srt_file, txt_file='', overwrite=False, noblanklines=True):
+    txt_text = []
     try:
         if srt_file.endswith('.srt'):
             if txt_file == '':
                 txt_file = srt_file[:-3] + 'txt'
 
-            with open (srt_file, 'r', encoding='utf-8') as src_file:
-                 srt_text = src_file.readlines()[1:]
+            with open(srt_file, 'r', encoding='utf-8') as src_file:
+                srt_text = src_file.readlines()[1:]
 
-                 if exists(txt_file) and overwrite == False:
-                     answer = f'output file "{txt_file}" already exists specify another name or set overwrite as "True"'
-                 else:
-                     with open (txt_file, 'w', encoding='utf-8') as output_file:
-                         for item in srt_text:
-                             if not item[0].isdigit():
-                                 if noblanklines:
-                                     output_file.write(item[:-1] + ' ')
-                                 else:
-                                     output_file.write(item)
+            if exists(txt_file) and overwrite == False:
+                answer = f'output file "{txt_file}" already exists specify another name or set overwrite as "True"'
 
-                     answer = f'{srt_file} converted to {txt_file}'
+            else:  # format conversion
+                for item in srt_text:
+                    if not item[0].isdigit():
+                        if noblanklines:
+                            txt_text.append(item[:-1])
+                        else:
+                            txt_text.append(item)
+
+                with open(txt_file, 'w', encoding='utf-8') as output_file:
+                    if noblanklines:
+                        output_file.write(' '.join(txt_text))
+                    else:
+                        output_file.write(''.join(txt_text))
+
+                answer = f'{srt_file} converted to {txt_file}'
+
         else:
             answer = 'invalid file type, need ".srt"'
 

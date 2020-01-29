@@ -15,8 +15,10 @@
         FileNotFoundError if input file not found.
 """
 
+from os.path import exists
 
-def srtToTxt (srt_file, txt_file='', overwrite=False, noblanklines=True):
+
+def srtToTxt (srt_file, txt_file='', overwrite=False, noblanklines=False):
     try:
         if srt_file.endswith('.srt'):
             if txt_file == '':
@@ -61,6 +63,5 @@ def main(argvs):
 
 if __name__ == '__main__':
     from sys import argv
-    from os.path import exists 
 
     main(argv)

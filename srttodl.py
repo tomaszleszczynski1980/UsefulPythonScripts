@@ -41,6 +41,7 @@ def srtToDL(srt_file, csv_file='', overwrite=False):
 
                     if srt_text[index][0].isdigit() and ':' not in srt_text[index]:
                         index += 1
+                        
                     elif srt_text[index][0].isdigit() and ':' in srt_text[index]:
                         dialogue_list_line.append(srt_text[index][:8])
                         index += 1
@@ -53,6 +54,11 @@ def srtToDL(srt_file, csv_file='', overwrite=False):
 
                         dialogue_list_line.append(text)
                         csv_list += [dialogue_list_line]
+                            
+                    else:
+                        index += 1
+
+                        
 
                 with open(csv_file, 'w', encoding='utf-8') as out_file:  # output file save
                     write = csv.writer(out_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)

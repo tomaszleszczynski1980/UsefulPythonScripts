@@ -16,7 +16,7 @@
 """
 
 
-def srtToTxt (srt_file, txt_file='', overwrite=False, noblanklines=False):
+def srtToTxt (srt_file, txt_file='', overwrite=False, noblanklines=True):
     try:
         if srt_file.endswith('.srt'):
             if txt_file == '':
@@ -26,42 +26,40 @@ def srtToTxt (srt_file, txt_file='', overwrite=False, noblanklines=False):
                  srt_text = src_file.readlines()[1:]
 
                  if exists(txt_file) and overwrite == False:
-                     print (f'output file "{txt_file}" already exists')
-                     print ('specify another name or set overwrite as "True"')
+                     answer = f'output file "{txt_file}" already exists specify another name or set overwrite as "True"'
                  else:
                      with open (txt_file, 'w', encoding='utf-8') as output_file:
                          for item in srt_text:
-
                              if not item[0].isdigit():
                                  if noblanklines:
-                                     output_file.write(item[:-1])
+                                     output_file.write(item[:-1] + ' ')
                                  else:
                                      output_file.write(item)
+
+                     answer = f'{srt_file} converted to {txt_file}'
         else:
-            print('invalid file type, need ".srt"')
+            answer = 'invalid file type, need ".srt"'
 
     except TypeError:
-        print(f'"{srt_file}" is invalid file name')
+        answer = f'"{srt_file}" is invalid file name'
     except FileNotFoundError as error:
-        print(f'{error}')
+        answer = f'{error}'
+
+    return answer
 
 
 def main(argvs):
     if len(argvs) == 1:
         files = input('srt file path>>> ').split(' ')
-
     else:
         files = argvs[1:]
-
     try:
-        srtToTxt(files[0], files[1])
-
+        print(srtToTxt(files[0], files[1]))
     except IndexError:
-        srtToTxt(files[0])
+        print(srtToTxt(files[0]))
 
 
 if __name__ == '__main__':
-
     from sys import argv
     from os.path import exists 
 

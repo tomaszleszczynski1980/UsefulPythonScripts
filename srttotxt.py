@@ -16,7 +16,7 @@
 """
 
 
-def srtToTxt (srt_file, txt_file='', overwrite=False):
+def srtToTxt (srt_file, txt_file='', overwrite=False, noblanklines=False):
     try:
         if srt_file.endswith('.srt'):
             if txt_file == '':
@@ -28,24 +28,25 @@ def srtToTxt (srt_file, txt_file='', overwrite=False):
                  if exists(txt_file) and overwrite == False:
                      print (f'output file "{txt_file}" already exists')
                      print ('specify another name or set overwrite as "True"')
-
                  else:
                      with open (txt_file, 'w', encoding='utf-8') as output_file:
                          for item in srt_text:
-                             
-                             if not item[0].isdigit():
-                                 output_file.write(item)
 
+                             if not item[0].isdigit():
+                                 if noblanklines:
+                                     output_file.write(item[:-1])
+                                 else:
+                                     output_file.write(item)
         else:
             print('invalid file type, need ".srt"')
 
-    except TypeError as error:
-        print (f'"{srt_file}" is invalid file name')
+    except TypeError:
+        print(f'"{srt_file}" is invalid file name')
     except FileNotFoundError as error:
-        print (f'{error}')
+        print(f'{error}')
 
 
-def main (argvs):
+def main(argvs):
     if len(argvs) == 1:
         files = input('srt file path>>> ').split(' ')
 

@@ -27,7 +27,7 @@ def srtToTxt(srt_file, txt_file='', overwrite=False, noblanklines=True):
                 txt_file = srt_file[:-3] + 'txt'
 
             with open(srt_file, 'r', encoding='utf-8') as src_file:
-                srt_text = src_file.readlines()[1:]
+                srt_text = src_file.readlines()
 
             if exists(txt_file) and overwrite == False:
                 answer = f'output file "{txt_file}" already exists specify another name or set overwrite as "True"'

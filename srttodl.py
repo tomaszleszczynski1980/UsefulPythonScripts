@@ -21,6 +21,7 @@ from os.path import exists
 
 
 def srtToDL(srt_file, csv_file='', overwrite=False):
+
     try:
         if srt_file.endswith('.srt'):
             if csv_file == '':
@@ -57,8 +58,6 @@ def srtToDL(srt_file, csv_file='', overwrite=False):
                             
                     else:
                         index += 1
-
-                        
 
                 with open(csv_file, 'w', encoding='utf-8') as out_file:  # output file save
                     write = csv.writer(out_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)

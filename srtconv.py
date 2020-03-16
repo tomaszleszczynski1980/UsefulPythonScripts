@@ -1,4 +1,4 @@
-# import re
+import re
 from csv import writer as csv_writer
 from os.path import exists
 
